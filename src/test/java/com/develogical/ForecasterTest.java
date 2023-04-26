@@ -9,8 +9,7 @@ import java.math.BigDecimal;
 import java.time.DayOfWeek;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class ForecasterTest {
 //    @Test
@@ -41,5 +40,18 @@ public class ForecasterTest {
         assertEquals(forecast.description, "sunny");
 
         verify(delegate).forecast(DayOfWeek.THURSDAY, "Oxford");
+    }
+
+    @Test
+    public void askDelegateForPreviouslySeenValueIfItExists() throws IOException {
+        Forecaster delegate = mock(Forecaster.class);
+        Mockito.when(delegate.forecast(DayOfWeek.THURSDAY, "Oxford"))
+                .thenReturn(new MetOfficeForecasterClient.Forecast(12, 18, "sunny"));
+
+        Forecaster forecaster = new CachingForecasterImpl(delegate);
+        forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
+        forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
+
+        verify(delegate, times(1)).forecast(DayOfWeek.THURSDAY, "Oxford");
     }
 }
