@@ -43,7 +43,7 @@ public class ForecasterTest {
     }
 
     @Test
-    public void askDelegateForPreviouslySeenValueIfItExists() throws IOException {
+    public void notAskDelegateTwiceButRatherUseInfoFromCache() throws IOException {
         Forecaster delegate = mock(Forecaster.class);
         Mockito.when(delegate.forecast(DayOfWeek.THURSDAY, "Oxford"))
                 .thenReturn(new MetOfficeForecasterClient.Forecast(12, 18, "sunny"));

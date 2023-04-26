@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class Example {
     public static void main(String[] args) throws IOException {
-        ForecasterAdapter adapter = new ForecasterAdapter(LocalDate.now().getDayOfWeek(), new MetOfficeForecasterClient(), new LocatorClient());
+        Forecaster adapter = new NavyForecasterAdapter(LocalDate.now().getDayOfWeek(), new NavyForecastingClient(), new LocatorClient());
         Forecaster forecaster = new CachingForecasterImpl(adapter);
         MetOfficeForecasterClient.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
         System.out.printf("forecaster: min=%s max=%s description=%s%n",
