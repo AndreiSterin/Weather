@@ -31,10 +31,10 @@ public class ForecasterTest {
     public void asksDelegateForForecastIfNeverSeenBefore() throws IOException {
         Forecaster delegate = mock(Forecaster.class);
         Mockito.when(delegate.forecast(DayOfWeek.THURSDAY, "Oxford"))
-                .thenReturn(new MetOfficeForecasterClient.Forecast(12, 18, "sunny"));
+                .thenReturn(new Forecaster.Forecast(12, 18, "sunny"));
 
         Forecaster forecaster = new CachingForecasterImpl(delegate);
-        MetOfficeForecasterClient.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
+        Forecaster.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
         assertEquals(forecast.minTemp, 12);
         assertEquals(forecast.maxTemp, 18);
         assertEquals(forecast.description, "sunny");
@@ -46,7 +46,7 @@ public class ForecasterTest {
     public void notAskDelegateTwiceButRatherUseInfoFromCache() throws IOException {
         Forecaster delegate = mock(Forecaster.class);
         Mockito.when(delegate.forecast(DayOfWeek.THURSDAY, "Oxford"))
-                .thenReturn(new MetOfficeForecasterClient.Forecast(12, 18, "sunny"));
+                .thenReturn(new Forecaster.Forecast(12, 18, "sunny"));
 
         Forecaster forecaster = new CachingForecasterImpl(delegate);
         forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");

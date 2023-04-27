@@ -10,7 +10,7 @@ public class Example {
     public static void main(String[] args) throws IOException {
         Forecaster adapter = new NavyForecasterAdapter(LocalDate.now().getDayOfWeek(), new NavyForecastingClient(), new LocatorClient());
         Forecaster forecaster = new CachingForecasterImpl(adapter);
-        MetOfficeForecasterClient.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
+        Forecaster.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
         System.out.printf("forecaster: min=%s max=%s description=%s%n",
                 forecast.minTemp, forecast.maxTemp, forecast.description);
         forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");

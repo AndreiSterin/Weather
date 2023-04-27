@@ -22,7 +22,7 @@ public class ForecasterAdapterTest {
                 .thenReturn(new MetOfficeForecasterClient.Forecast(12, 18, "sunny"));
 
         Forecaster forecaster = new ForecasterAdapter(DayOfWeek.WEDNESDAY, forecasterClient, locatorClient);
-        MetOfficeForecasterClient.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
+        Forecaster.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
         assertEquals(forecast.minTemp, 12);
         assertEquals(forecast.maxTemp, 18);
         assertEquals(forecast.description, "sunny");

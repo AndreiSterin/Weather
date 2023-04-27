@@ -14,12 +14,13 @@ public class ForecasterAdapter implements Forecaster {
         this.today = today;
     };
     @Override
-    public MetOfficeForecasterClient.Forecast forecast(DayOfWeek day, String place) {
+    public Forecaster.Forecast forecast(DayOfWeek day, String place) {
         LocatorClient.Location location = null;
         try {
             location = client.locationOf(place);
             int dayDifference = (day.getValue() - today.getValue()) % 7;
-            return forecasterClient.forecast(dayDifference, location.latitude, location.longitude);
+            MetOfficeForecasterClient.Forecast forecast = forecasterClient.forecast(dayDifference, location.latitude, location.longitude);
+            return new Forecaster.Forecast(forecast.minTemp, forecast.maxTemp, forecast.description);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

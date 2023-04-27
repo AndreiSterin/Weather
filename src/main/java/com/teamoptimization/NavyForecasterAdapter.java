@@ -14,9 +14,9 @@ public class NavyForecasterAdapter implements Forecaster {
         this.today = today;
     };
     @Override
-    public MetOfficeForecasterClient.Forecast forecast(DayOfWeek day, String place) {
+    public Forecaster.Forecast forecast(DayOfWeek day, String place) {
         try {
-            return new MetOfficeForecasterClient.Forecast(forecasterClient.min(day,place),
+            return new Forecaster.Forecast(forecasterClient.min(day,place),
                     forecasterClient.max(day,place), forecasterClient.desc(day,place));
         } catch (IOException e) {
             throw new RuntimeException(e);

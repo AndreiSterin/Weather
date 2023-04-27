@@ -17,12 +17,12 @@ public class ForecasterAveragerTest {
         Forecaster forecaster2 = mock(Forecaster.class);
 
         Mockito.when(forecaster1.forecast(DayOfWeek.THURSDAY, "Oxford"))
-                .thenReturn(new MetOfficeForecasterClient.Forecast(12, 18, "sunny"));
+                .thenReturn(new Forecaster.Forecast(12, 18, "sunny"));
         Mockito.when(forecaster2.forecast(DayOfWeek.THURSDAY, "Oxford"))
-                .thenReturn(new MetOfficeForecasterClient.Forecast(5, 15, "sunny"));
+                .thenReturn(new Forecaster.Forecast(5, 15, "sunny"));
 
         Forecaster forecaster = new AveragerForecaster(forecaster1, forecaster2);
-        MetOfficeForecasterClient.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
+        Forecaster.Forecast forecast = forecaster.forecast(DayOfWeek.THURSDAY, "Oxford");
         assertEquals(forecast.minTemp, 8);
         assertEquals(forecast.maxTemp, 16);
     }
